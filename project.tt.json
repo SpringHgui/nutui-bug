@@ -2,7 +2,7 @@
   "miniprogramRoot": "./",
   "projectname": "taro-market",
   "description": "商圈收款",
-  "appid": "touristappid",
+  "appid": "wx6c8aeae96feca426",
   "setting": {
     "urlCheck": true,
     "es6": false,

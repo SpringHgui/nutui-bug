@@ -1,3 +1,5 @@
+const path = require('path');
+
 const config = {
   projectName: 'taro-market',
   date: '2022-4-1',
@@ -5,8 +7,17 @@ const config = {
   deviceRatio: {
     640: 2.34 / 2,
     750: 1,
-    828: 1.81 / 2
+    828: 1.81 / 2,
+    375: 2/1
   },
+  sass: {
+		resource: [
+			path.resolve(__dirname, '..', 'src/assets/styles/custom_theme.scss')
+		],
+    // 默认京东 APP 10.0主题 > @import "@nutui/nutui-taro/dist/styles/variables.scss";
+    // 京东科技主题 > @import "@nutui/nutui-taro/dist/styles/variables-jdt.scss";
+    data: `@import "@nutui/nutui-taro/dist/styles/variables.scss";`
+	},
   sourceRoot: 'src',
   outputRoot: 'dist',
   plugins: ['taro-plugin-pinia'],
@@ -24,7 +35,12 @@ const config = {
       pxtransform: {
         enable: true,
         config: {
-
+          // selectorBlackList: ['nut-']
+          // Taro 场景下 NutUI 默认设计尺寸是375，项目里设计稿用的 750,解决方案
+          designWidth (input) {
+            const isNutUi = input.file.replace(/\\+/g, '/').indexOf('@nutui/nutui-taro') > -1
+            return isNutUi ? 375 : 750
+          }
         }
       },
       url: {
